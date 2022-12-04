@@ -1,0 +1,557 @@
+/* [ ヤマハボート免許オンライン教室 スマ免 ] : layout.css */
+
+
+/*======================================================================*
+ *  [ header ]
+ *======================================================================*/
+
+#header { background: #70ad47; }
+#header .inner { position: relative; }
+#header .inner::after {
+	display: block;
+	clear: both;
+	content: "";
+}
+#header ul { list-style: none; }
+	
+/* [ トップへ戻る ] */
+#header .top {
+	font-size: 1.2rem;
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-size: 12px 9px;
+}
+
+@media screen and (max-width: 767px) { /* Smartphone */
+	#header .inner { padding: 15px 13px; }
+	
+	/* [ スマ免ロゴ ] */
+	#header .logo img { width: 54px; }
+	
+	/* [ ヤマハロゴ ] */
+	#header .yamaha { display: none; }
+	
+	/* [ サイトナビ・トップへ戻る ] */
+	#header .inner .site, 
+	#header .inner .top    { display: none; }
+} /* */
+
+@media screen and (min-width: 768px) { /* PC */
+	#header .inner {
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+	
+	/* [ スマ免ロゴ ] */
+	#header .logo { float: left; }
+	#header .logo img { width: 108px; }
+	#header .logo img.pc { width: 68px; }
+	#header .logo img.pc + img { margin-left: -2px; }
+	
+	/* [ ヤマハロゴ ] */
+	#header .yamaha {
+		float: right;
+		margin: 6px 0;
+	}
+	#header .yamaha img { width: 136px; }
+	#header .yamaha:hover img, 
+	#header .yamaha:active img { opacity: 1; }
+	
+	/* [ サイトナビ ] */
+	#header .inner .site {
+		float: right;
+		margin: 20px 2.5% 20px 0;
+		font-size: 1.4rem;
+		font-weight: bold;
+		line-height: 20px;
+	}
+	#header .inner .site::after {
+		display: block;
+		clear: both;
+		content: "";
+	}
+	#header .inner .site li { float: left; }
+	#header .inner .site li + li { border-left: 1px solid #c5c5c5; }
+	#header .inner .site a {
+		padding: 0 25px;
+		color: #c5c5c5;
+		text-decoration: none;
+	}
+	#header .inner .site a:hover, 
+	#header .inner .site a:active { text-decoration: underline; }
+	
+	/* [ トップへ戻る ] */
+	#header .inner .top {
+		position: absolute;
+		top: 35px;
+		left: 210px;
+		padding: 0 1em 0 2.5em;
+		border: 1px solid #fff;
+		border-radius: 20px;
+		background-color: rgba(255,255,255,.25);
+		background-image: url(../img/top_wh.svg);
+		background-position: left 1em center;
+		color: #fff;
+		line-height: 28px;
+	}
+	#header .inner .top:hover, 
+	#header .inner .top:active { background-color: rgba(255,255,255,.4); }
+} /* */
+
+
+/* [ メニュー ] */
+#header .menu { background: #70ad47; }
+
+/* [ グローバルナビ ] */
+#header .global a { text-decoration: none; }
+#header .global a:hover, 
+#header .global a:active { color: #51d3ff; }
+#header .global li a {
+	position: relative; 
+	color: #0070c0;
+}
+#header .global li.active a {
+	color: #0070c0;
+	font-weight: bold;
+}
+
+/* [ ログアウト ] */
+#header .logout {
+	display: block;
+	width: 110px;
+	padding: 0 5px 0 32px;
+	background: url(../img/logout.svg) left 5px center no-repeat;
+	background-size: 18px 20px;
+	color: #c5c5c5;
+	font-size: 1.4rem;
+	line-height: 20px;
+}
+
+@media screen and (max-width: 767px) { /* Smartphone */
+	body {
+		position: absolute;
+		overflow: hidden;
+	}
+	.spmenu {
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+	}
+	#header .menu {
+		position: absolute;
+		top: 60px;
+		right: -100%;
+		bottom: 0;
+		left: 100%;
+		padding: 25px 13px;
+		-webkit-transition: transform ease .3s; /* Safari */
+		transition: transform ease .3s;
+		z-index: 1000;
+	}
+	.spmenu #header .menu {
+		-webkit-transform: translateX(-100%);
+		transform: translateX(-100%);
+	}
+	
+	/* [ ボタン ] */
+	#header .btn {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 60px;
+		background: #000;
+		cursor: pointer;
+	}
+	#header .btn::before,
+	#header .btn::after {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-reoeat: none;
+		background-position: center center;
+		background-size: 60px 60px;
+		content: "";
+	}
+	#header .btn::before {
+		display: block;
+		background-image: url(../img/menu.svg);
+	}
+	.spmenu #header .btn::before { display: none; }
+	#header .btn::after {
+		display: none;
+		background-image: url(../img/close.svg);
+	}
+	.spmenu #header .btn::after { display: block; }
+	
+	/* [ サイトナビ ] */
+	#header .menu .site {
+		display: -webkit-flex;
+		display: flex;
+		-webkit-justify-content: space-between;
+		justify-content: space-between;
+		margin-bottom: 30px;
+		padding: 0 5px;
+		font-size: 1.4rem;
+		font-weight: bold;
+		text-align: center;
+	}
+	#header .menu .site li { width: 50%; }
+	#header .menu .site li + li { margin-left: 5px; }
+	#header .menu .site a {
+		display: block;
+		padding: 9px 10px 8px;
+		border: 1px solid #636363;
+		background: url(../img/arrow_bold_gy.svg) right 5px center no-repeat;
+		background-size: 6px auto;
+		color: #c5c5c5;
+		text-decoration: none;
+	}
+	#header .menu .site a:hover, 
+	#header .menu .site a:active { background-color: rgb(255,255,255,.2); }
+	
+	/* [ トップへ戻る ] */
+	#header .menu .top {
+		margin-bottom: 15px;
+		padding: 0 5px 0 22px;
+		background-image: url(../img/top_bl.svg);
+		background-position: left 5px center;
+		color: #00b0ec;
+	}
+	#header .menu .top:hover, 
+	#header .menu .top:active { text-decoration: underline; }
+	
+	/* [ グローバルナビ ] */
+	#header .global { border-top: 1px solid #808080; }
+	#header .global ul {
+		margin-bottom: 20px;
+		font-size: 1.8rem;
+		font-weight: bold;
+	}
+	#header .global li { border-bottom: 1px solid #808080; }
+	#header .global li a {
+		display: block;
+		padding: 15px 32px 15px 52px;
+		background: url(../img/arrow_bold_gy.svg) right 10px center no-repeat;
+		background-size: 12px 20px;
+	}
+	#header .global li a:hover, 
+	#header .global li a:active { background-color: rgba(255,255,255,.2); }
+	#header .global li a::before, 
+	#header .global li a::after {
+		position: absolute;
+		top: 50%;
+		left: 10px;
+		width: 32px;
+		height: 22px;
+		margin-top: -12px;
+		-webkit-transition: opacity ease .3s; /* Safari */
+		transition: opacity ease .3s;
+	}
+	#header .global li a::after { opacity: 0; }
+	#header .global li.active a::before,
+	#header .global li a:hover::before, 
+	#header .global li a:active::before { opacity: 0; }
+	#header .global li.active a::after,
+	#header .global li a:hover::after, 
+	#header .global li a:active::after { opacity: 1; }
+	#header .global li:nth-of-type(1) a::before { content: url(../img/course_wh.svg); }
+	#header .global li:nth-of-type(1) a::after  { content: url(../img/course_bl.svg); }
+	#header .global li:nth-of-type(2) a::before { content: url(../img/practice_wh.svg); }
+	#header .global li:nth-of-type(2) a::after  { content: url(../img/practice_bl.svg); }
+	#header .global li:nth-of-type(3) a::before { content: url(../img/memorization_wh.svg); }
+	#header .global li:nth-of-type(3) a::after  { content: url(../img/memorization_bl.svg); }
+	#header .global li:nth-of-type(4) a::before { content: url(../img/simulation_wh.svg); }
+	#header .global li:nth-of-type(4) a::after  { content: url(../img/simulation_bl.svg); }
+	
+	/* [ ログアウト ] */
+	#header .logout { margin: 0 auto; }
+} /* */
+
+@media screen and (min-width: 768px) { /* PC */
+	/* [ ボタン ] */
+	#header .btn { display: none; }
+	#header .menu .site { display: none; }
+	#header .menu .top  { display: none; }
+	
+	/* [ グローバルナビ ] */
+	#header .global {
+		display: -webkit-flex;
+		display: flex;
+		-webkit-flex: 1;
+		flex: 1;
+		-webkit-justify-content: space-between;
+		justify-content: space-between;
+		-webkit-align-items: center;
+		align-items: center;
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+	#header .global ul {
+		display: -webkit-flex;
+		display: flex;
+		-webkit-justify-content: space-between;
+		justify-content: space-between;
+		width: 70%;
+		max-width: 660px;
+	}
+	#header .global li a { padding: 17px 5px; }
+	#header .global li.active a::after {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		margin-left: -8px;
+		border: 8px solid transparent;
+		border-top: 0;
+		border-bottom: 10px solid #daedfe;
+		content: "";
+	}
+} /* */
+
+
+/*======================================================================*
+ *  [ title ]
+ *======================================================================*/
+
+#title { background-color: #daedfe; }
+#title h1 {
+	max-width: 1240px;
+	margin: 0 auto;
+	background-repeat: no-repeat;
+	line-height: 1;
+	font-weight: normal;
+}
+#title h1.course       { background-image: url(../img/course_bl.svg); }
+#title h1.practice     { background-image: url(../img/practice_bl.svg); }
+#title h1.memorization { background-image: url(../img/memorization_bl.svg); }
+#title h1.simulation   { background-image: url(../img/simulation_bl.svg); }
+#title h1.practical    { background-image: url(../img/practical_bl.svg); }
+#title h1.howto        { background-image: url(../img/howto_bl.svg); }
+#title h1.faq          { background-image: url(../img/faq_bl.svg); }
+
+@media screen and (max-width: 767px) { /* Smartphone */
+	#title h1 {
+		padding: 15px 13px 15px 70px;
+		background-position: left 15px top 10px;
+		background-size: 40px 28px;
+		font-size: 2rem;
+	}
+} /* */
+
+@media screen and (min-width: 768px) { /* PC */
+	#title h1 {
+		padding: 32px 20px 32px 120px;
+		background-position: left 25px top 22px;
+		background-size: 72px 50px;
+		font-size: 3.6rem;
+	}
+} /* */
+
+
+/*======================================================================*
+ *  [ breadcrumb ]
+ *======================================================================*/
+
+#breadcrumb {
+	list-style: none;
+	max-width: 1240px;
+	margin: 0 auto;
+	line-height: 1;
+}
+#breadcrumb li { display: inline-block; }
+#breadcrumb li:nth-last-of-type(1) { font-weight: bold; }
+#breadcrumb li + li::before {
+	font-weight: normal;
+	content: "＞";
+}
+#breadcrumb a {
+	color: #000;
+	text-decoration: none;
+}
+#breadcrumb a:hover, 
+#breadcrumb a:active { text-decoration: underline; }
+
+@media screen and (max-width: 767px) { /* Smartphone */
+	#breadcrumb {
+		margin-bottom: 30px;
+		padding: 10px 13px;
+		font-size: 1.1rem;
+	}
+} /* */
+
+@media screen and (min-width: 768px) { /* PC */
+	#breadcrumb {
+		margin-bottom: 50px;
+		padding: 15px 20px;
+		font-size: 1.3rem;
+	}
+} /* */
+
+
+/*======================================================================*
+ *  [ pagetop ]
+ *======================================================================*/
+
+#pagetop {
+	position: fixed;
+	right: 0;
+	border: solid transparent;
+	border-top-width: 0;
+	border-right-width: 0;
+	border-bottom-color: #000;
+	cursor: pointer;
+	-webkit-transition: transform ease .3s; /* Safari */
+	transition: transform ease .3s;
+}
+#pagetop.active {
+	-webkit-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+#pagetop::after {
+	position: absolute;
+	content: url(../img/top_wh.svg);
+	-webkit-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+
+#pagetopup {
+	position: fixed;
+	top: 100%;
+	transition: transform ease .3s;
+	width: 100%;
+	text-align: right;
+}
+
+#pagetopup > div{background: rgba(225,246,238,0.8); padding: 20px; display: block;}
+#pagetopup div div{margin: auto; max-width: 1200px; display: flex; justify-content: center;}
+#pagetopup div div a{background: #4d9f3a; color: #fff; margin:0 10px; display:block; padding:15px; text-decoration: none; text-align: center; font-size: 1.8rem; width: 33%; border-radius: 5px;}
+#pagetopup div div a:hover{background: #72cd33;}
+
+#pagetopup div div a img{margin: 0 15px 0 0; width: 40px;}
+
+#pagetopup.active {
+	transform: translateY(-100%);
+}
+#pagetopup .up{
+	position: relative;
+	border: solid transparent;
+	border-top-width: 0;
+	border-right-width: 0;
+	border-bottom-color: #000;
+	width: 80px;
+	height: 80px;
+	border-bottom-width: 80px;
+	border-left-width: 80px;
+	margin-bottom: -3px;
+}
+#pagetopup .up::after {
+	position: absolute;
+	content: url(../img/top_wh.svg);
+	transform: rotate(-90deg);
+	right: 10px;
+	bottom: -65px;
+	width: 26px;
+	height: 20px;
+}
+
+@media screen and (max-width: 767px) { /* Smartphone */
+	#pagetop {
+		bottom: -50px;
+		width: 50px;
+		height: 50px;
+		border-bottom-width: 50px;
+		border-left-width: 50px;
+	}
+	#pagetop::after {
+		right: 7px;
+		bottom: -42px;
+		width: 16px;
+		height: 12px;
+	}
+	
+#pagetopup .up{
+	width: 50px;
+	height: 50px;
+	border-bottom-width: 50px;
+	border-left-width: 50px;
+	margin-bottom: -3px;
+}
+#pagetopup .up::after {
+	right: 7px;
+	bottom: -42px;
+	width: 16px;
+	height: 12px;
+}
+
+#pagetopup div{padding: 5px 5px;}
+#pagetopup div div a{margin:0 5px; padding:2px 5px; text-decoration: none; font-size: 1.2rem; line-height: 140%;}
+#pagetopup div div a img{margin: 5px auto 2px; width: 20px!important; display: block;}
+#pagetopup div div a + a + a img{width: 25px!important;}
+
+#pagetopup + #footer{margin-bottom: 80px!important;}
+
+} /* */
+
+@media screen and (min-width: 768px) { /* PC */
+	#pagetop {
+		bottom: -80px;
+		width: 80px;
+		height: 80px;
+		border-bottom-width: 80px;
+		border-left-width: 80px;
+	}
+	#pagetop::after {
+		right: 10px;
+		bottom: -65px;
+		width: 26px;
+		height: 20px;
+	}
+} /* */
+
+
+/*======================================================================*
+ *  [ footer ]
+ *======================================================================*/
+
+#footer { text-align: center; }
+
+/* [ コピーライト ] */
+#footer .copy { color: #14882; }
+
+@media screen and (max-width: 767px) { /* Smartphone */
+	#footer { padding: 40px 13px 25px; }
+	
+	/* [ ヤマハロゴ ] */
+	#footer .yamaha { display: block; }
+	#footer .yamaha img { width: 120px; }
+	#footer .yamaha:hover img, 
+	#footer .yamaha:active img { opacity: 1; }
+	
+	/* [ ボート免許教室ロゴ ] */
+	#footer .license { margin: 20px 0 25px; }
+	#footer .license img { width: 200px; }
+	
+	/* [ コピーライト ] */
+	#footer .copy { font-size: 1rem; }
+} /* */
+
+@media screen and (min-width: 768px) { /* PC */
+	#footer { padding: 40px 20px 15px; }
+	
+	/* [ ヤマハロゴ ] */
+	#footer .yamaha { display: none; }
+	
+	/* [ ボート免許教室ロゴ ] */
+	#footer .license { margin-bottom: 40px; }
+	#footer .license img { width: 250px; }
+	
+	/* [ コピーライト ] */
+	#footer .copy { font-size: 1.2rem; }
+} /* */
+

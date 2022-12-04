@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+
+
+<html lang="ja">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>QuickConsulting</title>
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+	<meta property="og:type" content="article">
+
+	{% load static %}
+
+	<!-- [ Icon ] -->
+
+	<link rel="icon" href="{% static " /images/ic_launcher.png" %}">
+
+	<!-- [ CSS ] -->
+	<link rel="stylesheet" href="{% static " /css/layout.css" %}" media="all">
+
+	<style>
+		.hide {
+			display: none;
+		}
+	</style>
+
+	<style>
+		input[type=text] {
+			width: 100%;
+			padding: 12px 20px;
+			margin: 8px 0;
+			box-sizing: border-box;
+		}
+
+		.div1 {
+			width: 100%;
+			height: 200px;
+			border: 1px solid blue;
+			box-sizing: border-box;
+		}
+
+		.div2 {
+			width: 300px;
+			height: 200px;
+			padding: 50px;
+			border: 1px solid red;
+			box-sizing: border-box;
+		}
+
+		h2::before {
+			counter-increment: section;
+			content: counter(section) ". ";
+		}
+	</style>
+
+	<style>
+		:root {
+			--color-white: #fff;
+			--color-black: #333;
+			--color-gray: #75787b;
+			--color-gray-light: #bbb;
+			--color-gray-disabled: #e8e8e8;
+			--color-green: #53a318;
+			--color-limegreen: #32CD32;
+			--color-green-dark: #383;
+			--font-size-small: .75rem;
+			--font-size-default: .875rem;
+			--font-size-big: 160rem;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 2rem;
+			font-family: 'Open Sans', sans-serif;
+			color: var(--color-black);
+		}
+
+		h2.primary-title {
+			color: var(--color-black);
+			font-size: var(--font-size-big);
+			line-height: 200%;
+			font-weight: 400;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+		}
+
+		section {
+			margin-bottom: 2rem;
+		}
+
+		.top-menu {
+			display: flex;
+			justify-content: space-between;
+			list-style: none;
+			padding: 0;
+			margin: 0 0 1rem 0;
+		}
+
+			.top-menu li {
+				flex: 2;
+				position: relative;
+				padding: 0 0 0 0;
+				font-size: var(--font-size-default);
+				line-height: 1.5;
+				color: var(--color-green);
+				font-weight: 600;
+				white-space: nowrap;
+				overflow: visible;
+				min-width: 0;
+				text-align: center;
+			}
+
+				.top-menu li:first-child,
+				.top-menu li:last-child {
+					flex: 1;
+				}
+
+				.top-menu li:last-child {
+					text-align: right;
+				}
+
+				.top-menu li:first-child:before {
+					c;
+				}
+
+				.top-menu li:last-child:before {
+					right: 0;
+					left: auto;
+				}
+
+			.top-menu span {
+				transition: opacity .3s ease-in-out;
+			}
+
+			.top-menu li:not(.is-active) span {
+				opacity: 0.2;
+			}
+
+			.top-menu .is-complete:not(:first-child):after,
+			.top-menu .is-active:not(:first-child):after {
+				content: "";
+				display: block;
+				width: 100%;
+				position: absolute;
+				bottom: -2px;
+				left: -50%;
+				z-index: 2;
+			}
+
+			.top-menu li:last-child span {
+				width: 200%;
+				display: inline-block;
+				position: absolute;
+				left: -100%;
+			}
+
+			.top-menu .is-complete:last-child:after,
+			.top-menu .is-active:last-child:after {
+				width: 200%;
+				left: -100%;
+			}
+
+			.top-menu .is-complete:before {
+				background-color: var(--color-green);
+			}
+
+			.top-menu .is-active:before,
+			.top-menu li:hover:before,
+			.top-menu .is-hovered:before {
+				background-color: var(--color-white);
+				border-color: var(--color-green);
+			}
+
+			.top-menu li:hover:before,
+			.top-menu .is-hovered:before {
+				transform: scale(1.33);
+			}
+
+			.top-menu li:hover span,
+			.top-menu li.is-hovered span {
+				opacity: 1;
+			}
+
+			.top-menu:hover li:not(:hover) span {
+				opacity: 0.7;
+			}
+
+		.x-ray .top-menu,
+		.x-ray .top-menu li {
+			border: 1px dashed red;
+		}
+
+		.top-menu .has-changes {
+			opacity: 1 !important;
+		}
+
+			.top-menu .has-changes:before {
+				content: "";
+				display: block;
+				width: 8px;
+				height: 8px;
+				position: absolute;
+				left: calc(50% - 4px);
+				bottom: -20px;
+				background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22%23ed1c24%22%20d%3D%22M4%200l4%208H0z%22%2F%3E%3C%2Fsvg%3E');
+			}
+
+		.progress-bar {
+			display: flex;
+			justify-content: space-between;
+			list-style: none;
+			padding: 0;
+			margin: 0 0 1rem 0;
+		}
+
+			.progress-bar li {
+				flex: 2;
+				position: relative;
+				padding: 0 0 14px 0;
+				font-size: var(--font-size-default);
+				line-height: 1.5;
+				color: var(--color-black);
+				font-weight: 600;
+				white-space: nowrap;
+				overflow: visible;
+				min-width: 0;
+				text-align: center;
+				border-bottom: 2px solid var(--color-gray-disabled);
+				background-color: var(--color-limegreen);
+				margin: 1px 1px 1px 1px;
+				border-top-right-radius: 20px;
+				border-bottom-right-radius: 20px;
+			}
+
+				.progress-bar li:first-child,
+				.progress-bar li:last-child {
+					flex: 1;
+				}
+
+				.progress-bar li:last-child {
+					text-align: right;
+				}
+
+				.progress-bar li:first-child:before {
+					c;
+				}
+
+				.progress-bar li:last-child:before {
+					right: 0;
+					left: auto;
+				}
+
+			.progress-bar span {
+				transition: opacity .3s ease-in-out;
+			}
+
+			.progress-bar li:not(.is-active) span {
+				opacity: 0.7;
+			}
+
+			.progress-bar .is-complete:not(:first-child):after,
+			.progress-bar .is-active:not(:first-child):after {
+				content: "";
+				display: block;
+				width: 100%;
+				position: absolute;
+				bottom: -2px;
+				left: -50%;
+				z-index: 2;
+			}
+
+			.progress-bar li:last-child span {
+				width: 200%;
+				display: inline-block;
+				position: absolute;
+				left: -100%;
+			}
+
+			.progress-bar .is-complete:last-child:after,
+			.progress-bar .is-active:last-child:after {
+				width: 200%;
+				left: -100%;
+			}
+
+			.progress-bar .is-complete:before {
+				background-color: var(--color-green);
+			}
+
+			.progress-bar .is-active:before,
+			.progress-bar li:hover:before,
+			.progress-bar .is-hovered:before {
+				background-color: var(--color-white);
+				border-color: var(--color-green);
+			}
+
+			.progress-bar li:hover:before,
+			.progress-bar .is-hovered:before {
+				transform: scale(1.33);
+			}
+
+			.progress-bar li:hover span,
+			.progress-bar li.is-hovered span {
+				opacity: 1;
+			}
+
+			.progress-bar:hover li:not(:hover) span {
+				opacity: 0.8;
+			}
+
+		.x-ray .progress-bar,
+		.x-ray .progress-bar li {
+			border: 1px dashed red;
+		}
+
+		.progress-bar .has-changes {
+			opacity: 1 !important;
+		}
+
+			.progress-bar .has-changes:before {
+				content: "";
+				display: block;
+				width: 8px;
+				height: 8px;
+				position: absolute;
+				left: calc(50% - 4px);
+				bottom: -20px;
+				background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22%23ed1c24%22%20d%3D%22M4%200l4%208H0z%22%2F%3E%3C%2Fsvg%3E');
+			}
+
+		/* Style The Dropdown Button */
+		.dropbtn {
+			background-color: #4CAF50;
+			color: white;
+			padding: 16px;
+			font-size: 16px;
+			border: none;
+			cursor: pointer;
+			width: 100%;
+		}
+
+		/* The container <div> - needed to position the dropdown content */
+		.dropdown {
+			position: relative;
+			display: block;
+		}
+
+		/* Dropdown Content (Hidden by Default) */
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #f9f9f9;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			z-index: 1;
+		}
+
+			/* Links inside the dropdown */
+			.dropdown-content a {
+				color: black;
+				padding: 12px 16px;
+				text-decoration: none;
+				display: block;
+			}
+
+				/* Change color of dropdown links on hover */
+				.dropdown-content a:hover {
+					background-color: #f1f1f1
+				}
+
+		/* Show the dropdown menu on hover */
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+
+		/* Change the background color of the dropdown button when the dropdown content is shown */
+		.dropdown:hover .dropbtn {
+			background-color: #3e8e41;
+		}
+
+		.bottom-menu-btn span {
+			flex: 2;
+			position: relative;
+			padding: 0 0 0 0;
+			font-size: var(--font-size-default);
+			line-height: 1.5;
+			color: var(--color-black);
+			font-weight: 600;
+			white-space: nowrap;
+			overflow: visible;
+			min-width: 0;
+			text-align: center;
+			background-color: #04AA6D;
+			border-radius: 5px;
+			justify-content: space-between;
+		}
+
+		.nextprev a.w3-right, .nextprev a.w3-left {
+			background-color: #04AA6D;
+			color: #ffffff;
+			border-color: #04AA6D .w3-btn,.w3-button
+
+		{
+			border: none;
+			display: inline-block;
+			padding: 8px 16px;
+			vertical-align: middle;
+			overflow: hidden;
+			text-decoration: none;
+			color: inherit;
+			background-color: inherit;
+			text-align: center;
+			cursor: pointer;
+			white-space: nowrap
+		}
+
+		.w3-btn:hover {
+			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
+		}
+
+		.w3-btn, .w3-button {
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none
+		}
+
+			.w3-disabled, .w3-btn:disabled, .w3-button:disabled {
+				cursor: not-allowed;
+				opacity: 0.3
+			}
+
+				.w3-disabled *, :disabled * {
+					pointer-events: none
+				}
+
+				.w3-btn.w3-disabled:hover, .w3-btn:disabled:hover {
+					box-shadow: none
+				}
+
+		.codegameright .w3-btn:link, .codegameright .w3-btn:visited {
+			background-color: #04AA6D;
+			border-radius: 5px;
+		}
+
+		.codegameright .w3-btn:hover, .codegameright .w3-btn:active {
+			background-color: #059862 !important;
+			text-decoration: none !important;
+		}
+
+		.w3-cell-row:before, .w3-cell-row:after, .w3-clear:after, .w3-clear:before, .w3-bar:before, .w3-bar:after {
+			content: "";
+			display: table;
+			clear: both
+		}
+
+		.nextprev a {
+			font-size: 18px;
+			font-family: 'Source Sans Pro', sans-serif;
+			padding-left: 19px;
+			padding-right: 19px;
+			border: 1px solid #cccccc;
+			border-radius: 5px;
+		}
+
+			.nextprev a:link, .nextprev a:visited {
+				background-color: #ffffff;
+				color: #000000;
+			}
+
+			.w3-example a:focus, .nextprev a:focus {
+				box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+			}
+
+		.w3-example .w3-btn, .w3-example .ws-btn {
+			background-color: #04AA6D !important;
+			border-radius: 5px;
+			font-size: 17px;
+			font-family: 'Source Sans Pro', sans-serif;
+			padding: 6px 18px;
+		}
+
+		.w3-code {
+			border-left: 4px solid #04AA6D;
+		}
+
+		.nextprev a.w3-right, .nextprev a.w3-left {
+			background-color: #04AA6D;
+			color: #ffffff;
+			border-color: #04AA6D
+		}
+
+		.sidesection .w3-left-align {
+			text-align: center !important;
+		}
+
+		.ws-css-exercises .w3-btn {
+			background-color: #04AA6D;
+			color: white;
+		}
+
+		.w3-btn, .w3-button {
+			border: none;
+			display: inline-block;
+			padding: 8px 16px;
+			vertical-align: middle;
+			overflow: hidden;
+			text-decoration: none;
+			color: inherit;
+			background-color: inherit;
+			text-align: center;
+			cursor: pointer;
+			white-space: nowrap
+		}
+
+			.w3-btn:hover {
+				box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
+			}
+
+		.w3-btn, .w3-button {
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none
+		}
+
+			.w3-disabled, .w3-btn:disabled, .w3-button:disabled {
+				cursor: not-allowed;
+				opacity: 0.3
+			}
+
+				.w3-disabled *, :disabled * {
+					pointer-events: none
+				}
+
+				.w3-btn.w3-disabled:hover, .w3-btn:disabled:hover {
+					box-shadow: none
+				}
+
+		.w3-dropdown-hover.w3-mobile, .w3-dropdown-hover.w3-mobile .w3-btn, .w3-dropdown-hover.w3-mobile .w3-button, .w3-dropdown-click.w3-mobile, .w3-dropdown-click.w3-mobile .w3-btn, .w3-dropdown-click.w3-mobile .w3-button {
+			width: 100%
+		}
+
+		}
+
+		.w3-example .w3-btn, .w3-example .ws-btn {
+			background-color: #04AA6D !important;
+			border-radius: 5px;
+			font-size: 17px;
+			font-family: 'Source Sans Pro', sans-serif;
+			padding: 6px 18px;
+		}
+
+		.w3-btn, .w3-btn:link, .w3-btn:visited {
+			color: #FFFFFF;
+			background-color: #4CAF50
+		}
+
+		a.w3-btn[href*="exercise.asp"], a.w3-btn[href*="exercise_js.asp"] {
+			margin: 10px 5px 0 0
+		}
+
+
+		body.darkpagetheme .w3-btn:hover.w3-white, body.darkpagetheme .w3-btn:active.w3-white, body.darkpagetheme .w3-button:hover.w3-white, body.darkpagetheme .w3-button:active.w3-white {
+			background-color: #38444d !important;
+		}
+
+		.w3-info .w3-btn {
+			background-color: #04AA6D;
+			border-radius: 5px;
+		}
+
+
+		.w3-btn:hover, .w3-btn:active, .w3-example a:focus, .nextprev a:focus {
+			box-shadow: none;
+			background-color: #059862 !important;
+		}
+
+			.w3-btn:hover.w3-blue, .w3-btn:active.w3-blue, .w3-button:hover.w3-blue, .w3-button:active.w3-blue {
+				background-color: #0d8bf2 !important;
+				color: #fff !important;
+			}
+
+			.w3-btn:hover.w3-white, .w3-btn:active.w3-white, .w3-button:hover.w3-white, .w3-button:active.w3-white {
+				background-color: #f1f1f1 !important;
+			}
+
+		.nextprev .w3-btn:not(.w3-left):not(.w3-right):hover, .nextprev .w3-btn:not(.w3-left):not(.w3-right):active, .nextprev .w3-btn:not(.w3-left):not(.w3-right):focus {
+			background-color: #f1f1f1 !important;
+		}
+
+
+		.ws-css-exercises .w3-btn {
+			background-color: #04AA6D;
+			color: white;
+		}
+
+		/*                     */
+		/* Search Window START */
+		/*                     */
+
+		.box {
+			text-align: center;
+		}
+
+		.button {
+			font-size: 1em;
+			padding: 15px 35px;
+			color: #fff;
+			text-decoration: none;
+			cursor: pointer;
+			transition: all 0.3s ease-out;
+			background: #04AA6D;
+			border-radius: 50px;
+		}
+
+		.overlay {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: rgba(0,0,0,0.8);
+			transition: opacity 500ms;
+			visibility: hidden;
+			opacity: 0;
+		}
+
+			.overlay:target {
+				visibility: visible;
+				opacity: 1;
+			}
+
+		.wrapper {
+			margin: 70px auto;
+			padding: 20px;
+			background: #e7e7e7;
+			border-radius: 5px;
+			width: 30%;
+			position: relative;
+			transition: all 5s ease-in-out;
+		}
+
+			.wrapper h2 {
+				margin-top: 0;
+				color: #333;
+			}
+
+			.wrapper .close {
+				position: absolute;
+				top: 20px;
+				right: 30px;
+				transition: all 200ms;
+				font-size: 30px;
+				font-weight: bold;
+				text-decoration: none;
+				color: #333;
+			}
+
+			.wrapper .content {
+				max-height: 30%;
+				overflow: auto;
+			}
+		/* form design */
+		.container {
+			border-radius: 5px;
+			background-color: #e7e7e7;
+			padding: 20px 0;
+		}
+
+		form label {
+			text-transform: upppercase;
+			font-weight: 500;
+			letter-spacing: 3px;
+		}
+
+		input[type=text], textarea {
+			width: 100%;
+			padding: 12px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			box-sizing: border-box;
+			margin-top: 6px;
+			margin-bottom: 16px;
+			resize: vertical
+		}
+
+		input[type="submit"] {
+			background-color: #413b3b;
+			color: #fff;
+			padding: 15px 50px;
+			border: none;
+			border-radius: 50px;
+			cursor: pointer;
+			font-size: 15px;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+		}
+
+		/* [ 選択問題 ] */
+		.list-group {
+			margin-left: 0;
+			list-style: none;
+			line-height: 1.2;
+		}
+
+			.list-group li {
+				display: -webkit-flex;
+				display: flex;
+			}
+
+				.list-group li + li {
+					margin-top: 10px;
+				}
+
+			.list-group label {
+				display: block;
+				position: relative; /* チェックボックスを正しい位置に表示するためにこれが必要 */
+				width: 100%;
+				border-radius: 5px;
+				border: 1px solid transparent;
+				background: #f3f3f3;
+			}
+
+
+			.list-group.radio label:hover,
+			.list-group.choice label:hover {
+				background: #f4fef2;
+			}
+
+			.list-group.choice label,
+			.list-group.choiced label {
+				padding: 15px 15px 15px 55px;
+			}
+
+			.list-group.choiced label {
+				cursor: text;
+			}
+
+			.list-group.answer div {
+				padding: 15px 15px 15px 30px;
+			}
+
+			.list-group .num + span {
+				padding-left: 1.5em;
+			}
+
+
+			.list-group .num {
+				position: absolute;
+				color: #002963;
+				font-family: arial, sans-serif;
+				line-height: 1;
+			}
+
+			.list-group img {
+				width: 100%;
+			}
+
+			.list-group br + img {
+				margin-top: 10px;
+			}
+
+			.list-group img.just {
+				width: auto;
+			}
+
+		ul.list-group li label::before {
+			display: block;
+			position: absolute;
+			top: 10px;
+			left: 15px;
+			width: 26px;
+			height: 26px;
+			border: 1px solid #b0b0b0;
+			border-radius: 4px;
+			background: #fff;
+			-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+			content: "";
+			-webkit-transition: background ease .3s, color ease .3s; /* Safari */
+			transition: background ease .3s, color ease .3s;
+		}
+
+		ul.list-group li label::after {
+			display: block;
+			position: absolute;
+			-webkit-opacity: 0;
+			opacity: 1;
+			top: 10px;
+			left: 15px;
+			width: 16px;
+			height: 16px;
+			margin: -8px 5px 0 5px;
+			/*            background: url({% static "/images/check_db.svg" %}) center center no-repeat; */
+			background: url( "/static/images/check_wh.svg" ) center center no-repeat;
+			content: "";
+			-webkit-transition: opacity 0.2s linear;
+			transition: opacity 0.2s linear;
+		}
+
+		ul.list-group li.check label::before {
+			border-color: #74c562;
+			background: #74c562;
+		}
+
+		ul.list-group li.check label::after {
+			opacity: 1;
+		}
+
+		ul.list-group .num {
+			position: absolute;
+			color: #002963;
+			font-family: arial, sans-serif;
+			line-height: 1;
+		}
+
+			ul.list-group .num + span {
+				padding-left: 1.5em;
+			}
+		/*                   */
+		/* Search Window END */
+		/*                   */
+
+	</style>
+
+	<style>
+		#header {
+			background: #70ad47;
+		}
+	</style>
+
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="{% static "/src/jquery.searcher.js" %}"></script>
+	<script src="{% static "/src/practice.js" %}"></script>
+
+</head>
+
+
+<body onload="changeDisplay();">
+
+	<main id="main">
+
+		<section>
+			<ol class="top-menu">
+				<li class="is-complete"><span><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Course/">使い方説明</a></span></li>
+				<li class="is-complete"><span><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Practice/">新規作成</a></span></li>
+				<li class="is-active"><span><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Memorization/">検索</a></span></li>
+				<li><span><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Simulation/">管理</a></span></li>
+			</ol>
+		</section>
+
+		<section>
+			<ol class="progress-bar">
+				<li class="is-complete"><span>困りごと入力</span></li>
+				<li class="is-active"><span>目標設定</span></li>
+				<li><span>実装イメージ</span></li>
+				<li><span>入力内容の確認</span></li>
+				<li><span>パワーポイント印刷</span></li>
+				<li><span>パワーポイント編集完了</span></li>
+			</ol>
+		</section>
+
+
+
+		<h2 clss="primary-title">困りごと入力</h2>
+		<h3>困りごと</h3>
+
+		<div class="box">
+			<a href="#divOne" , class="button">困りごと検索</a>
+		</div>
+
+		<div class="overlay" id="divOne">
+			<div class="wrapper">
+				<a id="close" href="#" class="close">&times;</a>
+				<div class="content">
+					<div class="container">
+						<form method="post" id="decide_komarigoto" action="{% url 'vid02:vid02001_code' %}">
+							{% csrf_token %}
+
+							<input type="hidden" class="komarigoto_code" id="komarigoto_code" name="komarigoto_code" value="1">
+
+							<label>検索条件<input id="listsearchinput" type="text" placeholder="検索条件を入力します。" /></label>
+							<label>検索結果</label>
+							<div>
+								<ul id="listdata" class="list-group">
+									{% if komarigotolist %}
+									{% for komarigoto in komarigotolist %}
+									<li data-answer="{{komarigoto.id}}"><label><b class="num">{{komarigoto.id}}</b><span>{{komarigoto.komarigoto}}</span></label></li>
+									{% endfor %}
+									{% else %}
+									<p>検索対象はありません。</p>
+									{% endif %}
+								</ul>
+							</div>
+							<script>
+
+
+								$("#listdata").searcher({
+									itemSelector: "li",
+									textSelector: "",
+									inputSelector: "#listsearchinput"
+								});
+
+								$("#decide_komarigoto").submit(function (event) {
+
+									//Stop form from submitting normally.
+									event.preventDefault();
+
+									var $form = $(this),
+										komarigoto_id = $form.find("li[class='check']").data("answer"),
+										url = $form.attr("action");
+
+                                    $.ajaxSetup({
+                                        data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+                                    });
+
+									$.post(url, { komarigoto_code: komarigoto_id }).done(function (data) {
+										try {
+//											var retData = $.parseJSON(data);
+
+											var komarigoto = data.komarigoto;
+											var eikyo1Val = data.eikyo1;
+                                            var eikyo2Val = data.eikyo2;
+                                            var genin1Val = data.genin1;
+											var genin2Val = data.genin2;
+
+											$("#komarigoto").text(komarigoto);
+
+											$("#eikyo1").text(eikyo1Val);
+                                            $("#eikyo2").text(eikyo2Val);
+                                            $("#genin1").text(genin1Val);
+                                            $("#genin2").text(genin2Val);
+										}
+										catch (err) {
+											alert(err);
+										}
+									});
+
+                                    document.getElementById("close").click();
+								});
+
+							</script>
+
+							<input class="decide" type="submit" value="決定">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<form method="post" id="form_komarigoto_input" action="{% url 'vid02:vid02001_komarigoto_input' %}">
+			{% csrf_token %}
+
+			<textarea name="Text1" cols="1" rows="1"></textarea>
+
+			<textarea id="komarigoto" class="div1" name="komarigoto" cols="40" rows="5"></textarea>
+
+
+			<h3>影響</h3>
+			上記の「困り事」から推測される会社への悪い影響を、自動表記。
+			必要に応じて編集してください（Max２つまで）。
+
+			<h4>影響１</h4>
+			<textarea id="eikyo1" class="div1" name="eikyo1" cols="40" rows="5">{% if eikyo1 %}{{ eikyo1.eikyo_desc }}{% endif %}</textarea><p></p>
+
+			<h4>影響２</h4>
+			<textarea id="eikyo2" class="div1" name="eikyo2" cols="40" rows="5">{% if eikyo2 %}{{ eikyo2.eikyo_desc }}{% endif %}</textarea><p></p>
+
+			<h3>原因</h3>
+			上記の「困り事」「影響」から推測される「困りごと」の発生原因を、自動表記。
+			必要に応じて編集してください（Max２つまで）。
+
+			<h4>原因１</h4>
+			<textarea id="genin1" class="div1" name="genin1" cols="40" rows="5">{% if genin1 %}{{ genin1.genin_desc2 }}{% endif %}</textarea><p></p>
+
+			<h4>原因２</h4>
+			<textarea id="genin2" class="div1" name="genin2" cols="40" rows="5">{% if genin2 %}{{ genin2.genin_desc2 }}{% endif %}</textarea><p></p>
+
+			<h3>これまでの経緯と対応</h3>
+
+			<textarea class="div1" name="Text1" cols="40" rows="5"></textarea>
+
+			<section>
+				<div class="bottom-menu-btn">
+					<input id="komarigoto_input" class="back" type="submit" name="btn_selected" value="戻る">
+					<input class="save" type="submit"  name="btn_selected" value="保存">
+					<input class="forward" type="submit"  name="btn_selected" value="困りごと改善のための課題">
+				</div>
+			</section>
+
+			<script>
+
+				$("#komarigoto_input").submit(function (event) {
+
+					alert("Clicked on komarigoto_input");
+
+                    //Stop form from submitting normally.
+                    event.preventDefault();
+
+                    var $form = $(this),
+                        url = $form.attr("action");
+
+                    $.ajaxSetup({
+                        data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+                    });
+
+                    $.post(url, {}).done(function (data) {
+                        try {
+                        }
+                        catch (err) {
+                            alert(err);
+                        }
+                    });
+                });
+			</script>
+
+		</form>
+	</main>
+
+	<footer id="footer">
+		<!--	<div class="yamaha"><a href="https://www.yamaha-motor.co.jp/" target="_blank"><img src="./ヤマハ ボートライセンススクール_files/yamaha_bk.svg" alt="YAMAHA"></a></div> -->
+		<!--	<div class="license"><a href="https://www.yamaha-motor.co.jp/marine/license/school/" target="_blank"><img src="./ヤマハ ボートライセンススクール_files/license.svg" alt="ヤマハボート免許教室"></a></div> -->
+		<!--	<small class="copy">© Yamaha Motor Co., Ltd. All Rights Reserved.</small> -->
+		<div id="header">
+			<nav class="global">
+
+				<ul>
+					<li><a href="https://www.cstex.jp/jp/#overview">利用規約</a></li>
+					<li><a href="https://www.cstex.jp/jp/#services">個人情報保護</a></li>
+				</ul>
+			</nav>
+			<nav class="global">
+				<ul>
+					<li><a href="https://www.cstex.jp/jp/#job-info">Copyright 2021© CS Technologies Inc. All rights reserved.</a></li>
+				</ul>
+			</nav>
+		</div>
+
+	</footer>
+
+
+</body>
+</html>

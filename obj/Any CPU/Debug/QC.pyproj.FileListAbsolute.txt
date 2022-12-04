@@ -1,0 +1,2 @@
+D:\GitHub\VisualStudio\QC\obj\Any CPU\Debug\QC.pyproj.SuggestedBindingRedirects.cache
+D:\GitHub\VisualStudio\QC\obj\Any CPU\Debug\QC.pyproj.CoreCompileInputs.cache

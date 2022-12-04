@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>QuickConsulting</title>
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta property="og:type" content="article">
+
+<!-- [ Icon ] -->
+<link rel="apple-touch-icon" href="https://smartlicense.yamaha-motor.co.jp/shared/img/webclip.png">
+<link rel="shortcut icon" href="https://smartlicense.yamaha-motor.co.jp/shared/img/favicon.ico">
+
+<link rel="icon" href="images/ic_launcher.png">
+
+<!-- [ CSS ] -->
+<link rel="stylesheet" href="css/layout.css" media="all">
+<style>
+.hide {
+	display:none;
+}
+</style>
+
+<style> 
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown-content a{
+ color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.div1 {
+  width: 300px;
+  height: 200px;
+  border: 1px solid blue;
+  box-sizing: border-box;
+}
+
+.div2 {
+  width: 300px;
+  height: 200px;  
+  padding: 50px;
+  border: 1px solid red;
+  box-sizing: border-box;
+}
+
+h2::before{
+  counter-increment: section;
+  content: counter(section) ". ";
+}
+
+</style>
+
+</head>
+<body onload="changeDisplay();">
+
+	<header id="header">
+		<div class="inner">
+			<ul class="site"></ul>
+		</div>
+
+		<div class="menu">
+			<ul class="site">
+				<li><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Index/howto">ご利用方法</a></li>
+				<li><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Index/faq">よくある質問</a></li>
+			</ul>
+			<nav class="global">
+				<ul>
+					<li><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Course/">使い方説明</a></li>
+					<li><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Practice/">新規作成</a></li>
+					<li><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Memorization/">検索</a></li>
+					<li><a href="https://smartlicense.yamaha-motor.co.jp/Class1/Simulation/">管理</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+<main id="main">
+
+
+	<form>
+
+		<h2>困りごと入力</h2>
+
+		<div style="padding-bottom: 0.25rem;padding-top: 0.25rem;">
+			<h3>困りごと</h3>
+				{% csrf_token %}
+				<table>
+					<tr>
+						<td>Program : </td>
+						<td>
+							<select id="program" name="komarigoto" style="width:400px;">
+								{% for komarigoto in komarigotolist %}
+								<option value="{{ komarigoto.id }}">{{ komarigoto.name }}</option>
+								{% endfor %}
+							</select>
+						</td>
+					</tr>
+				</table>
+		</div>
+
+		<textarea class="div1" name="Text1" cols="40" rows="5"></textarea><p></p>
+		<textarea class="div1" name="Text1" cols="40" rows="5"></textarea>
+
+
+		<h3>影響</h3>
+
+		<h4>影響１</h4>
+		<textarea class="div1" name="Text1" cols="40" rows="5"></textarea><p></p>
+
+		<h4>影響２</h4>
+		<textarea class="div1" name="Text1" cols="40" rows="5"></textarea>
+
+		<h3>原因</h3>
+
+		<h4>原因１</h4>
+		<textarea class="div1" name="Text1" cols="40" rows="5"></textarea><p></p>
+
+		<h4>原因２</h4>
+		<textarea class="div1" name="Text1" cols="40" rows="5"></textarea>
+
+		<h3>これまでの経緯と対応</h3>
+
+		<textarea class="div1" name="Text1" cols="40" rows="5"></textarea>
+	</form>
+
+</main>
+
+<footer id="footer">
+<!--	<div class="yamaha"><a href="https://www.yamaha-motor.co.jp/" target="_blank"><img src="./ヤマハ ボートライセンススクール_files/yamaha_bk.svg" alt="YAMAHA"></a></div> -->
+<!--	<div class="license"><a href="https://www.yamaha-motor.co.jp/marine/license/school/" target="_blank"><img src="./ヤマハ ボートライセンススクール_files/license.svg" alt="ヤマハボート免許教室"></a></div> -->
+<!--	<small class="copy">© Yamaha Motor Co., Ltd. All Rights Reserved.</small> -->
+		<div id="header">
+			<nav class="global">
+
+					<ul>
+						<li><a href="https://www.cstex.jp/jp/#overview">利用規約</a></li>
+						<li><a href="https://www.cstex.jp/jp/#services">個人情報保護</a></li>
+					</ul>
+			</nav>
+			<nav class="global">
+				<ul>
+					<li><a href="https://www.cstex.jp/jp/#job-info">Copyright 2021© CS Technologies Inc. All rights reserved.</a></li>
+				</ul>
+			</nav>
+		</div>
+
+</footer>
+
+
+</body></html>
