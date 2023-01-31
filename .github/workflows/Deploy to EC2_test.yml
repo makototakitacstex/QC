@@ -1,4 +1,4 @@
-name: Deploy to EC2_test
+name: Deploy to EC2
 
 # Trigger deployment only on push to master branch
 on:
