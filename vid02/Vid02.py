@@ -1,6 +1,7 @@
 
 # Commit and push from QC_CSTex Github Desktop Cloned.
 # Another commit and push from QC_CSTex Github Desktop Cloned.
+# Test commit from cstexproejcts/QC
 
 from django.http import HttpResponse
 from django.http import JsonResponse
