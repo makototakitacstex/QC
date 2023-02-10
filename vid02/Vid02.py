@@ -3,6 +3,7 @@
 # Another commit and push from QC_CSTex Github Desktop Cloned.
 # 2023/2/9 Test from makoto.takita@cstex.jp/QC
 # 2023/2/9 2nd Test from makoto.takita@cstex.jp/QC
+# 2023/2/10 3rd Test from makoto.takita@cstex.jp/QC
 
 from django.http import HttpResponse
 from django.http import JsonResponse
